@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #twenty-four{
+            margin-right: -5px;
+            background: green;
+            color: white;
+            padding: 6px;
+            border: none;
+        }
+        #twelve{
+            background: white;
+            color: green;
+            border: 1px solid green;
+            padding: 5px;
+        }
+    </style>
+    <title>Current Time</title>
+</head>
+<body>
+    <p>Current Time:</p>
+    <p id="time"></p>
+    <div class="btns">
+        <button id="twenty-four">24-Hours Format</button>
+        <button id="twelve">12-Hours Format</button>
+    </div>
+    <script>
+        const clock = document.getElementById('time')
+        const twentyFour = document.getElementById('twenty-four')
+        const twelve = document.getElementById('twelve')
+        let d;
+        let format = 24
+        let addition = ''
+        twentyFour.addEventListener('click', () => {
+            if(twentyFour.style.background == 'white'){
+                twentyFour.style.background = 'green'
+                twentyFour.style.color = 'white'
+                twentyFour.style.padding = '6px'
+                twentyFour.style.border = 'none'
+                twelve.style.background = 'white'
+                twelve.style.color = 'green'
+                twelve.style.padding = '5px'
+                twelve.style.border = '1px solid green'
+                format = 24
+                addition = ''
+            }else{
+                twentyFour.style.background = 'white'
+                twentyFour.style.color = 'green'
+                twentyFour.style.padding = '5px'
+                twentyFour.style.border = '1px solid green'
+                twelve.style.background = 'green'
+                twelve.style.color = 'white'
+                twelve.style.padding = '6px'
+                twelve.style.border = 'none'
+                format = 12
+            }
+        })
+        twelve.addEventListener('click', () => {
+            if(twelve.style.background == 'white'){
+                twelve.style.background = 'green'
+                twelve.style.color = 'white'
+                twelve.style.padding = '6px'
+                twelve.style.border = 'none'
+                twentyFour.style.background = 'white'
+                twentyFour.style.color = 'green'
+                twentyFour.style.padding = '5px'
+                twentyFour.style.border = '1px solid green'
+                format = 12
+            }else{
+                twelve.style.background = 'white'
+                twelve.style.color = 'green'
+                twelve.style.padding = '5px'
+                twelve.style.border = '1px solid green'
+                twentyFour.style.background = 'green'
+                twentyFour.style.color = 'white'
+                twentyFour.style.padding = '6px'
+                twentyFour.style.border = 'none'
+                format = 24
+                addition = ''
+            }
+        })
+        setInterval(() => {
+            clock.innerHTML = ''
+            d = new Date()
+            if(format == 24){
+                if(d.getHours() < 10){
+                    clock.innerHTML += '0' + String(d.getHours())
+                }else{
+                    clock.innerHTML += String(d.getHours())
+                }   
+            }else{
+                if(d.getHours() <= 12){
+                    if(d.getHours() < 10){
+                        clock.innerHTML += '0' + String(d.getHours())
+                    }else{
+                        clock.innerHTML += String(d.getHours())
+                    }
+                    addition = ' a. m.'
+                }else{
+                    clock.innerHTML += String(d.getHours() - 12)
+                    addition = ' p. m.'
+                }
+            }
+            clock.innerHTML += ':'
+            if(d.getMinutes() < 10){
+                clock.innerHTML += '0' + String(d.getMinutes())
+            }else{
+                clock.innerHTML += String(d.getMinutes())
+            }
+            clock.innerHTML += ':'
+            if(d.getSeconds() < 10){
+                clock.innerHTML += '0' + String(d.getSeconds())
+            }else{
+                clock.innerHTML += String(d.getSeconds())
+            }
+            clock.innerHTML += addition
+        }, 1000)
+    </script>
+</body>
+</html>
